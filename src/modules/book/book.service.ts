@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { BookDTO } from './book.dto';
 
@@ -15,7 +15,7 @@ export class BookService {
         });
 
         if (bookExists) {
-            throw new Error('Book already exists');
+            throw new ConflictException('Book already exist');
         }
 
         const book = await this.prisma.book.create({
