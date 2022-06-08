@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/PrismaService';
 import { BookDTO } from './book.dto';
 
@@ -36,7 +36,7 @@ export class BookService {
             }
         });
         if (!bookExists) {
-            throw new Error('Book does not exists!');
+            throw new NotFoundException('Book does not exist');
         };
 
         return await this.prisma.book.update({
@@ -54,7 +54,7 @@ export class BookService {
             }
         });
         if (!bookExists) {
-            throw new Error('Book does not exists!');
+            throw new NotFoundException('Book does not exist');
         };
 
         return await this.prisma.book.delete({
